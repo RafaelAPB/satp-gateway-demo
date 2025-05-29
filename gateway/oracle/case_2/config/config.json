@@ -17,34 +17,12 @@
   },
   "logLevel": "TRACE",
   "counterPartyGateways": [],
-  "localRepository": {
-    "client": "pg",
-    "connection": {
-      "host": "local-postgres",
-      "user": "user123123",
-      "password": "password",
-      "database": "my_database",
-      "port": 5432,
-      "ssl": false
-    }
-  },
-  "remoteRepository": {
-    "client": "pg",
-    "connection": {
-      "host": "remote-postgres",
-      "user": "user123123",
-      "password": "password",
-      "database": "my_database",
-      "port": 5432,
-      "ssl": false
-    }
-  },
   "environment": "development",
   "ccConfig": {
     "oracleConfig": [
       {
         "networkIdentification": {
-          "id": "EthereumLedgerTestNetwork",
+          "id": "HardhatTestNetwork1",
           "ledgerType": "ETHEREUM"
         },
         "signingCredential": {
@@ -62,9 +40,28 @@
         "claimFormats": [
           2
         ]
+      },
+      {
+        "networkIdentification": {
+          "id": "HardhatTestNetwork2",
+          "ledgerType": "ETHEREUM"
+        },
+        "signingCredential": {
+          "ethAccount": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+          "secret": "0x47e179ec197488593b187f80a00eb0da91f1b9d0b13f8733639f19c30a34926a",
+          "type": "PRIVATE_KEY_HEX"
+        },
+        "gasConfig": {
+          "gas": "6721975",
+          "gasPrice": "20000000000"
+        },
+        "connectorOptions": {
+          "rpcApiHttpHost": "http://host.docker.internal:8546"
+        },
+        "claimFormats": [
+          2
+        ]
       }
     ]
-  },
-  "enableCrashRecovery": false,
-  "ontologyPath": "/opt/cacti/satp-hermes/ontologies"
+  }
 }
