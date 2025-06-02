@@ -7,20 +7,18 @@ const { ethers } = require("hardhat");
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
 describe("SATPTokenContract", function () {
-  const assetId = "satp-asset-1";
 
   async function deploySATPTokenContract() {
     [deployer, user, another] = await ethers.getSigners();
 
     SATPToken = await ethers.getContractFactory("SATPTokenContract");
-    satp = await SATPToken.connect(deployer).deploy(deployer.address, assetId);
+    satp = await SATPToken.connect(deployer).deploy(deployer.address);
 
     return { satp, deployer, user, another };
   };
 
   it("should initialize correctly with correct roles and ID", async function () {
     const { satp, deployer } = await loadFixture(deploySATPTokenContract);
-    expect(await satp.getId()).to.equal(assetId);
     expect(await satp.hasRole(await satp.OWNER_ROLE(), deployer.address)).to.be.true;
     expect(await satp.hasRole(await satp.BRIDGE_ROLE(), deployer.address)).to.be.true;
   });
@@ -134,9 +132,9 @@ describe("SATPTokenContract", function () {
     ).to.be.reverted;
   });
 
-  it("should revert hasPermission if no permission", async function () {
+  it("should revert hasBridgeRole if no permission", async function () {
     const { satp, user } = await loadFixture(deploySATPTokenContract);
-    await expect(satp.connect(user).hasPermission(user.address)).to.be.revertedWithCustomError(
+    await expect(satp.connect(user).hasBridgeRole(user.address)).to.be.revertedWithCustomError(
       satp,
       "noPermission"
     );
@@ -144,6 +142,6 @@ describe("SATPTokenContract", function () {
 
   it("should confirm permission if has BRIDGE_ROLE", async function () {
     const { satp, deployer } = await loadFixture(deploySATPTokenContract);
-    await expect(satp.connect(deployer).hasPermission(deployer.address)).to.eventually.equal(true);
+    await expect(satp.connect(deployer).hasBridgeRole(deployer.address)).to.eventually.equal(true);
   });
 });

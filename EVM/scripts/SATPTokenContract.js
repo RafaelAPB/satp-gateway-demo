@@ -28,7 +28,7 @@ async function main(port) {
   // Deploy the SATPTokenContract
   console.log(`${port} - Deploying SATPTokenContract...`);
   const SATPTokenContractFactory = new ethers.ContractFactory(SATP_TOKEN_ABI, SATP_TOKEN_BYTECODE, deployer);
-  const satpTokenContract = await SATPTokenContractFactory.deploy(deployerAddress, "id1");
+  const satpTokenContract = await SATPTokenContractFactory.deploy(deployerAddress);
   await satpTokenContract.waitForDeployment();
   console.log(`${port} - SATPTokenContract deployed to:`, satpTokenContract.target);
 

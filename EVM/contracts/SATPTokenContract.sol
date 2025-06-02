@@ -18,13 +18,9 @@ contract SATPTokenContract is AccessControl, ERC20, SATPTokenContractInterface {
     bytes32 public constant BRIDGE_ROLE = keccak256("BRIDGE_ROLE");
     bytes32 public constant OWNER_ROLE = keccak256("OWNER_ROLE");
 
-    string public id;
-
-    constructor(address _owner, string memory _id) ERC20("SATPToken", "SATP") {
+    constructor(address _owner) ERC20("SATPToken", "SATP") {
         _grantRole(OWNER_ROLE, _owner);
         _grantRole(BRIDGE_ROLE, _owner);
-
-        id = _id;
     }
 
     /**
@@ -64,20 +60,6 @@ contract SATPTokenContract is AccessControl, ERC20, SATPTokenContractInterface {
 
     /**
      * @notice Checks if the given account has the given role.
-     * @return success A boolean that indicates if the account has the role.
-     */
-    function getAllAssetsIDs() external view returns (string[] memory) {
-        string[] memory myArray = new string[](1);
-        myArray[0] = id;
-        return myArray;
-    }
-
-    function getId() view public returns (string memory) {
-        return id;
-    }
-
-    /**
-     * @notice Checks if the given account has the given role.
      * @param account The account to check.
      * @return success A boolean that indicates if the account has the role.
      */
@@ -91,19 +73,10 @@ contract SATPTokenContract is AccessControl, ERC20, SATPTokenContractInterface {
      * @param account The account to check.
      * @return success A boolean that indicates if the account has the role.
      */
-    function hasPermission(address account) external view returns (bool success) {
+    function hasBridgeRole(address account) external view returns (bool success) {
         if(hasRole(BRIDGE_ROLE, account)){
             return true;
         }     
         revert noPermission(account);
-    }
-
-    /**
-     * @notice Checks the balance of the given account.
-     * @param account The account to check.
-     * @return balance The balance of the account.
-     */
-    function checkBalance(address account) external view returns (uint256) {
-        return balanceOf(account);
     }
 }
