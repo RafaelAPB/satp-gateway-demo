@@ -19,15 +19,15 @@ This repository contains a demo implementation of a **SATP (Secure Asset Transfe
 
 ```
 .
-├── EVM/                           # Hardhat project for setting up test EVM blockchains
+├── EVM/                          # Hardhat project for setting up test EVM blockchains
 ├── gateway/
 │   └── oracle/
 │       ├── case_1/               # Middleware: Manual READ and WRITE
 │       ├── case_2/               # Middleware: Auto READ and WRITE
 │       ├── case_3/               # Register polling for periodic READ
 │       ├── case_4/               # Event listening + READ and UPDATE
-├── satp/
-│   └── case_1/                   # SATP Protocol: Asset transfer between EVM blockchains
+│   └── satp/
+│       └── case_1/               # SATP Protocol: Asset transfer between EVM blockchains
 ```
 
 ---
